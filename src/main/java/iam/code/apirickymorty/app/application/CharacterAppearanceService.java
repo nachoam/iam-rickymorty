@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
-public interface ApiRickyMortyService {
+public interface CharacterAppearanceService {
     public Optional<CharacterAppearance> searchCharacterAppearanceByName(String name);
 }
