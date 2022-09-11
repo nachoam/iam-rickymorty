@@ -19,7 +19,7 @@ public class ApiRickyMortyController implements ApiRickyMortyService {
 
     @GetMapping("/search-character-appearance")
     public ResponseEntity<CharacterAppearance> searchCharacterAppearance(@RequestParam("name") String name) {
-        log.debug("REST request to search character appearance with name : {}", name);
+        log.info("REST request to search character appearance with name : {}", name);
 
         return searchCharacterAppearanceByName(name)
                 .map( characterAppearance -> ResponseEntity.ok().body(characterAppearance))

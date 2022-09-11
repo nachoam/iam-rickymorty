@@ -1,5 +1,7 @@
 package iam.code.apirickymorty;
 
+import iam.code.apirickymorty.character.domain.Character;
+import iam.code.apirickymorty.character.domain.CharacterRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -7,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -19,6 +23,9 @@ class ApirickymortyApplicationTests {
     // TEST API REST
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    CharacterRepository characterRepository;
 
     @Test
     public void badRequest() throws Exception {
@@ -87,26 +94,34 @@ class ApirickymortyApplicationTests {
 
     @Test
     public void searchCharacterWithNameNull() throws Exception {
-        assertThat(false).isTrue();
+        Optional<Character> returned_character = characterRepository.searchByName(null);
+        assertThat(returned_character.isPresent()).isFalse();
     }
 
     @Test
     public void searchCharacterWithNameEmpty() throws Exception {
-        assertThat(false).isTrue();
+        Optional<Character> returned_character = characterRepository.searchByName("");
+        assertThat(returned_character.isPresent()).isFalse();
     }
 
     @Test
     public void searchCharacterWithNameEmptyPlus() throws Exception {
-        assertThat(false).isTrue();
+        Optional<Character> returned_character = characterRepository.searchByName("    ");
+        assertThat(returned_character.isPresent()).isFalse();
     }
 
     @Test
     public void searchCharacterWithNameRick() throws Exception {
-        assertThat(false).isTrue();
+        Optional<Character> returned_character = characterRepository.searchByName("rick");
+        assertThat(returned_character.isPresent()).isTrue();
+        Character character = returned_character.get();
+        assertThat(character.getName().toLowerCase()).contains("rick");
+        assertThat(character.getEpisodesUrl()).isNotEmpty();
     }
 
     @Test
     public void searchCharacterWithInventedName() throws Exception {
-        assertThat(false).isTrue();
+        Optional<Character> returned_character = characterRepository.searchByName("nacho");
+        assertThat(returned_character.isPresent()).isFalse();
     }
 }
