@@ -53,7 +53,7 @@ public class APIRickyMortyCharacterRepository implements CharacterRepository {
 
     @Override
     public Optional<Character> searchByName(String name) {
-        log.info("Character Repository > search character with name : {}", name);
+        log.info("\t\t- Character Repository > search character with name : {}", name);
 
         if(name == null || name.trim().isEmpty())
             return Optional.empty();

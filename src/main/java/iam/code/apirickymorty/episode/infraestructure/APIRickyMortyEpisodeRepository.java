@@ -55,6 +55,7 @@ public class APIRickyMortyEpisodeRepository implements EpisodeRepository {
 
     @Override
     public List<Episode> searchAllByIDs(List<String> ids) {
+        log.info("\t\t- Episode Repository > search episodes with name : {}", ids);
 
         if(ids == null || ids.size() == 0)
             return Collections.emptyList();
