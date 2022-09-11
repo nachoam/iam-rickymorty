@@ -87,7 +87,8 @@ class ApirickymortyApplicationTests {
 
     @Test
     public void searchEpisodesWithListWithOneElement() throws Exception {
-        List<Episode> found_episodes = episodeRepository.searchAllByIDs(Arrays.asList("1"));
+        List<String> ids = Collections.singletonList("1");
+        List<Episode> found_episodes = episodeRepository.searchAllByIDs(ids);
         assertThat(found_episodes).isNotEmpty();
         assertThat(found_episodes).hasSize(1);
     }

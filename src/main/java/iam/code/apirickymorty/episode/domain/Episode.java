@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -16,6 +17,6 @@ public class Episode {
     @Getter
     @Setter
     @JsonProperty("air_date")
-    @JsonFormat(pattern="MMMM d, yyyy", locale = "en_GB")
+    @JsonFormat(pattern="MMMM d, yyyy",locale="en")
     Date airDate;
 }
