@@ -1,5 +1,6 @@
 package iam.code.apirickymorty.episode.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,5 +16,6 @@ public class Episode {
     @Getter
     @Setter
     @JsonProperty("air_date")
+    @JsonFormat(pattern="MMMM d, yyyy", locale = "en_GB")
     Date airDate;
 }
