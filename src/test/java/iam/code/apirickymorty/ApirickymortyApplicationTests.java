@@ -2,6 +2,8 @@ package iam.code.apirickymorty;
 
 import iam.code.apirickymorty.character.domain.Character;
 import iam.code.apirickymorty.character.domain.CharacterRepository;
+import iam.code.apirickymorty.episode.domain.Episode;
+import iam.code.apirickymorty.episode.domain.EpisodeRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -10,6 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,6 +31,9 @@ class ApirickymortyApplicationTests {
 
     @Autowired
     CharacterRepository characterRepository;
+
+    @Autowired
+    EpisodeRepository episodeRepository;
 
     @Test
     public void badRequest() throws Exception {
@@ -67,27 +75,35 @@ class ApirickymortyApplicationTests {
 
     @Test
     public void searchEpisodesWithNullCharacter() throws Exception {
-        assertThat(false).isTrue();
+        List<Episode> found_episodes = episodeRepository.searchAllByIDs(null);
+        assertThat(found_episodes).isEmpty();
     }
 
     @Test
     public void searchEpisodesWithEmptyList() throws Exception {
-        assertThat(false).isTrue();
+        List<Episode> found_episodes = episodeRepository.searchAllByIDs(Collections.emptyList());
+        assertThat(found_episodes).isEmpty();
     }
 
     @Test
     public void searchEpisodesWithListWithOneElement() throws Exception {
-        assertThat(false).isTrue();
+        List<Episode> found_episodes = episodeRepository.searchAllByIDs(Arrays.asList("1"));
+        assertThat(found_episodes).isNotEmpty();
+        assertThat(found_episodes).hasSize(1);
     }
 
     @Test
     public void searchEpisodesWithListWithMoreThanOneElement() throws Exception {
-        assertThat(false).isTrue();
+        List<Episode> found_episodes = episodeRepository.searchAllByIDs(Arrays.asList("1","3","4"));
+        assertThat(found_episodes).isNotEmpty();
+        assertThat(found_episodes).hasSize(3);
     }
 
     @Test
     public void searchEpisodesWithListWithMoreThanOneElementAndOneNotExists() throws Exception {
-        assertThat(false).isTrue();
+        List<Episode> found_episodes = episodeRepository.searchAllByIDs(Arrays.asList("1","3","4","4444"));
+        assertThat(found_episodes).isNotEmpty();
+        assertThat(found_episodes).hasSize(3);
     }
 
     // TEST CHARACTER APPLICATION
